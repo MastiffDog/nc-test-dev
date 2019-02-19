@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
-  title = 'nc-angular-project';
+  title = 'Учет сотрудников компании К:';
 }
+
+
+

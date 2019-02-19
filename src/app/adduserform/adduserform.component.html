@@ -1,0 +1,36 @@
+<div>
+  <h2 mat-dialog-title>Регистрация нового пользователя</h2>
+   <hr>
+     <strong>ФИО (обязательно к заполнению, не менее 3 символов):</strong>
+            <input type="text" placeholder="ФИО"
+                   [(ngModel)]="PopFormUser.name"
+                   [ngClass]="{UserErr: userError}" />
+
+     <strong>Должность (обязательно к заполнению, не менее 3 символов):</strong>
+            <input type="text" placeholder="Должность"
+                   [(ngModel)]="PopFormUser.position"
+                   [ngClass]="{PositionErr: positionError}"/>
+
+            <strong>Дата рождения (обязательно к заполнению):</strong>
+            <input type="date" [(ngModel)]= "PopFormUser.DateOfBirth" >
+            <br>
+
+    <strong>Статус (обязательно к заполнению):</strong>
+       <br>
+       <br>
+         <mat-radio-button class="example-radio-button" (change)="addPopFormUserWorkTrue()">Работает</mat-radio-button>
+       <br>
+       <br>
+         <mat-radio-button class="example-radio-button" (change)="addPopFormUserWorkFalse()">Уволен</mat-radio-button>
+       <br>
+       <br>
+     <strong>Комментарий (необязательное поле):</strong>
+          <textarea matInput placeholder="Комментарий" [(ngModel)]="PopFormUser.comment"></textarea>
+       <br>
+  <hr>
+
+  <mat-dialog-actions>
+     <button *ngIf="valid" class="waves-effect waves-light btn" (click)="addUserFormSubmit()">Принять</button>
+     <button class="waves-effect waves-light btn" (click)="addUserFormCancel()">Отмена</button>
+  </mat-dialog-actions>
+</div>

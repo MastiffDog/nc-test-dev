@@ -1,0 +1,87 @@
+<div style="text-align:center" *ngIf="!showUser">
+  <app-adduser></app-adduser>
+</div>
+
+<br>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" *ngIf = '!showUser'>
+
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> №: </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> ФИО: </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-button (click)="getUser(element.id)" class="workers">{{element.name}}</button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef> Должность: </th>
+    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="DateOfBirth">
+    <th mat-header-cell *matHeaderCellDef> Дата рождения: </th>
+    <td mat-cell *matCellDef="let element"> {{element.DateOfBirth}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef> Статус в компании: </th>
+    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<div *ngIf="showUser && !setUser">
+ <div class="row">
+   <hr>
+   <br>
+   <h3 class="headers">Выбранный пользователь:</h3>
+   <hr>
+     <div class="col s2">{{SelectedUser.name}}</div>
+     <div class="col s2">{{SelectedUser.position}}</div>
+     <div class="col s2">{{SelectedUser.DateOfBirth}}</div>
+     <div class="col s2">{{SelectedUser.status}}</div>
+     <div class="col s4">{{SelectedUser.comment}}</div>
+    <hr>
+  </div>
+     <button class="waves-effect waves-light btn" (click)="getHomePage()">Вернуться на главную</button>
+     <button class="waves-effect waves-light btn" (click)="setNewUser()">Редактировать</button>
+</div>
+
+<div *ngIf="setUser">
+  <h3 class="headers">Редактирование выбранного пользователя:</h3>
+  <hr>
+   <strong>ФИО (обязательно к заполнению):</strong>
+   <input type="text" placeholder="ФИО"
+          [(ngModel)]="SelectedUser.name"
+          [ngClass]="{ExistUserNameErr: exUserNameErr}"/>
+   <strong>Должность (обязательно к заполнению):</strong>
+   <input type="text" placeholder="Должность"
+          [(ngModel)]="SelectedUser.position"
+          [ngClass]="{ExistPositionErr: exPosErr}"/>
+       <strong>Дата рождения (обязательно к заполнению):</strong>
+       <input  type="date" [(ngModel)]="SelectedUser.DateOfBirth"/>
+   <br>
+   <strong>Статус (обязательно к заполнению):</strong>
+    <br>
+    <br>
+      <mat-radio-button class="example-radio-button" (change)="userWorkTrue()">Работает</mat-radio-button>
+    <br>
+    <br>
+      <mat-radio-button class="example-radio-button" (change)="userWorkFalse()">Уволен</mat-radio-button>
+   <br>
+   <br>
+   <strong>Комментарий (необязательное поле):</strong>
+   <textarea matInput placeholder="Комментарий" [(ngModel)]="SelectedUser.comment"></textarea>
+   <br>
+   <hr>
+   <button *ngIf="confirmUser" class="waves-effect waves-light btn" (click)="putUserData()">Принять изменения</button>
+   <button class="waves-effect waves-light btn" (click)="setNewUser()">Отмена</button>
+
+</div>
